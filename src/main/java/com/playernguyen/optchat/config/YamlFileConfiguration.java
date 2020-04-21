@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * This is an abstract class to create new configuration
- * System configuration, not an api
+ * System configuration, not API
  */
 public abstract class YamlFileConfiguration {
 
@@ -20,6 +20,7 @@ public abstract class YamlFileConfiguration {
     public YamlFileConfiguration(String name) {
         this.file = new File(OptChatProvider.getInstance().getDataFolder(), name);
         this.loadFromFile();
+        this.init();
     }
 
     protected File getFile() {

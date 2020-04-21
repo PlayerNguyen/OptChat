@@ -14,11 +14,13 @@ public class ChannelData {
     private String displayName;
     private User owner;
     private List<User> users;
+    private int size;
 
-    public ChannelData(String displayName, User owner) {
+    public ChannelData(String displayName, User owner, int size) {
         this.displayName = displayName;
         this.owner = owner;
         this.users = new LinkedList<>();
+        this.size = size;
     }
 
     /**
@@ -63,4 +65,20 @@ public class ChannelData {
         return users;
     }
 
+    /**
+     * Max size that player can join
+     * @return the maximum size that player can join
+     */
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        return "ChannelData{" +
+                "displayName='" + displayName + '\'' +
+                ", owner=" + owner +
+                ", users=" + users +
+                '}';
+    }
 }

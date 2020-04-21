@@ -16,6 +16,11 @@ public class ChannelInstance implements Channel {
         this.data = data;
     }
 
+    public ChannelInstance(String id, User owner, int size) {
+        this.id = id;
+        this.data = new ChannelData(id, owner, size);
+    }
+
     @Override
     public String getId() {
         return id;
@@ -57,9 +62,18 @@ public class ChannelInstance implements Channel {
 
         getData().getUsers().forEach(user -> {
             Player player = Bukkit.getPlayer(user.getUniqueId());
+
             if (user.isOnline() && player != null) {
                 player.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public String toString() {
+        return "ChannelInstance{" +
+                "id='" + id + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

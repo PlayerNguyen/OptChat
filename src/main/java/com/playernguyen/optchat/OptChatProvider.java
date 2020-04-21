@@ -1,5 +1,7 @@
 package com.playernguyen.optchat;
 
+import org.bukkit.Bukkit;
+
 public class OptChatProvider {
 
     /**

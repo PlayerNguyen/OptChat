@@ -3,10 +3,12 @@ package com.playernguyen.optchat.command;
 import com.playernguyen.optchat.manager.ContainerManager;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
-class SubCommandManager extends ContainerManager<SubCommand> {
+public class SubCommandManager extends ContainerManager<SubCommand> {
 
-    SubCommandManager() {
+    public SubCommandManager() {
         super(new HashSet<>());
     }
 
@@ -30,6 +32,22 @@ class SubCommandManager extends ContainerManager<SubCommand> {
      */
     public boolean contains(String command) {
         return getContainer().stream().anyMatch(c -> c.getCommand().equalsIgnoreCase(command));
+    }
+
+    /**
+     * Return the sub-command as list but with the name list (String list)
+     * @return The string list of commands name
+     */
+    public List<String> getSubCommandNameList() {
+        return getContainer().stream().map(Command::getCommand).collect(Collectors.toList());
+    }
+
+    /**
+     * Return the sub-command as list but with the toHelp list (String list)
+     * @return The string list of commands help guide
+     */
+    public List<String> toHelpList() {
+        return getContainer().stream().map(Command::toHelp).collect(Collectors.toList());
     }
 
 }

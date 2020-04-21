@@ -3,12 +3,12 @@ package com.playernguyen.optchat.event;
 import com.playernguyen.optchat.user.User;
 import org.bukkit.event.Cancellable;
 
-public class OptEcoUserChatEventAsync extends UserEvent implements Cancellable {
+public class OptChatUserChatEventAsync extends UserEvent implements Cancellable {
 
     private String message;
     private boolean cancelled = false;
 
-    public OptEcoUserChatEventAsync(User user, String message) {
+    public OptChatUserChatEventAsync(User user, String message) {
         super(true, user);
         this.message = message;
     }

@@ -1,16 +1,19 @@
 package com.playernguyen.optchat.command;
 
-public abstract class MainCommandInstance implements MainCommand {
+import java.util.Arrays;
+import java.util.List;
+
+public abstract class MainCommandInstance extends CommandInstance implements MainCommand {
 
     private String command;
     private String description;
-    private String permission;
+    private List<String> permissions;
     private SubCommandManager subCommandManager;
 
-    MainCommandInstance(String command, String description, String permission) {
+    MainCommandInstance(String command, String description, String ... permissions) {
         this.command = command;
         this.description = description;
-        this.permission = permission;
+        this.permissions = Arrays.asList(permissions);
         this.subCommandManager = new SubCommandManager();
     }
 
@@ -19,9 +22,8 @@ public abstract class MainCommandInstance implements MainCommand {
         return command;
     }
 
-    @Override
-    public String getPermission() {
-        return permission;
+    public List<String> getPermissionList() {
+        return permissions;
     }
 
     @Override

@@ -11,33 +11,41 @@ public class LanguageConfiguration extends YamlFileConfiguration {
 
     public LanguageConfiguration() {
         super(NAME);
-        this.init();
     }
 
     @Override
     protected void init() {
-        // If not found the file
-        if (!getFile().exists()) {
-            getConfiguration().options().copyDefaults(true);
-            // Load and save default instance of this file
-            for (LanguageFlags value : LanguageFlags.values()) {
-                if (!getConfiguration().contains(value.getPath())) {
-                    getConfiguration().addDefault(value.getPath(), value.getInstance());
-                }
-            }
-
-            // And then save the file
-            try {
-                this.save();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        this.getConfiguration().options().copyDefaults(true);
+        // Load and save default instance of this file
+        for (LanguageFlags value : LanguageFlags.values()) {
+            this.getConfiguration().addDefault(value.getPath(), value.getInstance());
         }
 
+        // And then save the file
+        try {
+            this.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // And load the configuration
         this.loadFromFile();
     }
 
+    /**
+     * Get the language which contain inside the language.yml
+     * @param flags {@link com.playernguyen.optchat.config.ConfigurableFlags} of language
+     * @return {@link String} language
+     */
     public String getLanguage(LanguageFlags flags) {
         return ChatColor.translateAlternateColorCodes('&', this.getString(flags));
+    }
+    /**
+     * Get the language which contain inside the language.yml with prefix
+     * @param flags {@link com.playernguyen.optchat.config.ConfigurableFlags} of language
+     * @return {@link String} language
+     */
+    public String getPrefixedLanguage(LanguageFlags flags) {
+        return getLanguage(LanguageFlags.PREFIX).concat(" ").concat(getLanguage(flags));
     }
 }

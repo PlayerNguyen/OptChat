@@ -4,11 +4,15 @@ import com.playernguyen.optchat.config.ConfigurableFlags;
 
 public enum  LanguageFlags implements ConfigurableFlags {
 
+    PREFIX                      ("main.prefix", "&c[&7OptChat&c]"),
+
     DEFAULT_CHANNEL_NAME        ("channel.default.display", "&eGlobal"),
 
     COMMAND_NO_PERMISSION_FIND  ("command.no-permission", "&cYou have no permissions to do this."),
     COMMAND_MISSING_ARGUMENT    ("command.missing-argument",  "&cMissing arguments"),
-    COMMAND_NOT_FOUND           ("command.command-not-found",  "&cCommand not found")
+    COMMAND_NOT_FOUND           ("command.command-not-found",  "&cCommand not found"),
+
+    COMMAND_LIST_HEADER         ("command.channel.list.header", "&eChannel List:")
     ;
 
     private String path;

@@ -1,6 +1,9 @@
 package com.playernguyen.optchat.command;
 
+import com.playernguyen.optchat.command.channel.SubCommandChannel;
 import com.playernguyen.optchat.permission.PermissionTag;
+import com.playernguyen.optchat.util.TextList;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -8,18 +11,23 @@ import java.util.List;
 public class OptChatExecute extends MainCommandInstance {
 
     public OptChatExecute(String command) {
-        super(command, "OptChat Command", PermissionTag.build(PermissionTag.PERMISSIONS_COMMAND, "command"));
+        super(command, "OptChat Command", PermissionTag.build(PermissionTag.PERMISSIONS_COMMAND, "command", "*"));
         // Put sub-command here
+        this.getSubCommandManager().put(new SubCommandChannel(this));
     }
 
     @Override
     public CommandResult execute(CommandSender sender, List<String> arguments) {
         // Check permission
-        if (!sender.hasPermission(getPermission())) {
+        if (!hasPermission(sender)) {
             return CommandResult.NO_PERMISSION;
         }
         // Check arguments
         if (arguments.size() < 1) {
+            // Send list
+            new TextList.Builder()
+                    .append(getSubCommandManager().toHelpList())
+                    .sendMinimal(sender, ChatColor.GRAY);
             return CommandResult.MISSING_ARGUMENTS;
         }
         // Check sub-command
@@ -39,6 +47,6 @@ public class OptChatExecute extends MainCommandInstance {
                     .getSubCommand(arguments.get(0))
                     .tab(sender, arguments.subList(1, arguments.size()));
         }
-        return null;
+        return getSubCommandManager().getSubCommandNameList();
     }
 }

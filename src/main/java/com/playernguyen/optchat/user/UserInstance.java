@@ -10,9 +10,14 @@ public class UserInstance implements User {
     private UUID uniqueId;
     private Channel channel;
 
+    @Deprecated
     public UserInstance(UUID uniqueId, Channel channel) {
         this.uniqueId = uniqueId;
         this.channel =  channel;
+    }
+
+    public UserInstance(UUID uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     @Override
@@ -39,5 +44,13 @@ public class UserInstance implements User {
     @Override
     public void leaveCurrent() {
         this.getChannel().leave(this);
+    }
+
+    @Override
+    public String toString() {
+        return "UserInstance{" +
+                "uniqueId=" + uniqueId +
+                ", channel=" + channel +
+                '}';
     }
 }

@@ -10,7 +10,7 @@ public interface Command {
 
     String getDescription();
 
-    String getPermission();
+    List<String> getPermissionList();
 
     CommandResult execute(CommandSender sender, List<String> arguments);
 
@@ -20,7 +20,7 @@ public interface Command {
         StringBuilder builder = new StringBuilder("/");
         if (this instanceof SubCommand) {
             builder
-                    .append(((SubCommand)this).getMainCommand())
+                    .append(((SubCommand)this).getMainCommand().getCommand())
                     .append(" ")
                     .append(getCommand())
             ;
@@ -32,6 +32,10 @@ public interface Command {
             builder.append(getCommand()).append(": ").append(getDescription());
         }
         return builder.toString();
+    }
+
+    default boolean hasPermission(CommandSender sender) {
+        return getPermissionList().stream().anyMatch(sender::hasPermission);
     }
 
 }

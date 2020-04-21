@@ -1,0 +1,9 @@
+name: OptChat
+version: 1.1
+main: com.playernguyen.optchat.OptChat
+author: Player_Nguyen
+api-version: 1.13
+commands:
+  optchat:
+    description: OptChat Plugin Command
+    usage: /optchat [args]

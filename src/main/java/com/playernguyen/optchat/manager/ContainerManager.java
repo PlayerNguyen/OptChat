@@ -1,5 +1,6 @@
 package com.playernguyen.optchat.manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ContainerManager<T> implements Manager<T> {
@@ -8,6 +9,10 @@ public class ContainerManager<T> implements Manager<T> {
 
     public ContainerManager(Collection<T> container) {
         this.container = container;
+    }
+
+    public ContainerManager() {
+        this.container = new ArrayList<>();
     }
 
     @Override
@@ -34,6 +39,5 @@ public class ContainerManager<T> implements Manager<T> {
     public boolean remove(T item) {
         return container.remove(item);
     }
-
 
 }

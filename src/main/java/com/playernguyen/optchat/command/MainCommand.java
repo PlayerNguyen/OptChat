@@ -2,6 +2,8 @@ package com.playernguyen.optchat.command;
 
 import com.playernguyen.optchat.OptChatProvider;
 import com.playernguyen.optchat.config.language.LanguageFlags;
+import com.playernguyen.optchat.util.TextList;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
@@ -22,17 +24,16 @@ public interface MainCommand extends Command, TabExecutor {
                         OptChatProvider
                                 .getInstance()
                                 .getLanguageConfiguration()
-                                .getLanguage(LanguageFlags.COMMAND_NO_PERMISSION_FIND))
+                                .getPrefixedLanguage(LanguageFlags.COMMAND_NO_PERMISSION_FIND))
                 ;
                 break;
             }
             // If missing an arguments
             case MISSING_ARGUMENTS: {
-                commandSender.sendMessage(toHelp());
                 commandSender.sendMessage(
                         OptChatProvider
                                 .getInstance().getLanguageConfiguration()
-                                .getLanguage(LanguageFlags.COMMAND_MISSING_ARGUMENT)
+                                .getPrefixedLanguage(LanguageFlags.COMMAND_MISSING_ARGUMENT)
 
                 );
                 break;
@@ -42,13 +43,14 @@ public interface MainCommand extends Command, TabExecutor {
                 commandSender.sendMessage(
                         OptChatProvider
                                 .getInstance().getLanguageConfiguration()
-                                .getLanguage(LanguageFlags.COMMAND_NOT_FOUND)
+                                .getPrefixedLanguage(LanguageFlags.COMMAND_NOT_FOUND)
 
                 );
                 break;
             }
+            // Success catch
             case SUCCESS: default: {
-                // Return null or success will do nothing
+                // Return success will do nothing
                 break;
             }
         }

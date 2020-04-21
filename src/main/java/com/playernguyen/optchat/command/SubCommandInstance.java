@@ -1,23 +1,31 @@
 package com.playernguyen.optchat.command;
 
-import org.bukkit.command.CommandSender;
+import com.playernguyen.optchat.permission.PermissionTag;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SubCommandInstance implements SubCommand {
+public abstract class SubCommandInstance extends CommandInstance implements SubCommand {
 
     private String command;
     private String arguments;
     private String description;
-    private String permission;
+    private List<String> permissions;
     private Command mainCommand;
 
-    public SubCommandInstance(String command, String arguments, String description, String permission, Command mainCommand) {
+    public SubCommandInstance(String command, String arguments, String description, Command mainCommand, String ...permissions) {
         this.command = command;
         this.arguments = arguments;
         this.description = description;
-        this.permission = permission;
         this.mainCommand = mainCommand;
+        this.permissions = new ArrayList<>();
+
+        /*
+        Permissions like a node execute.<sub-command>.<sub-command>...
+         */
+        for (String permission : permissions) {
+            this.permissions.add(PermissionTag.build(mainCommand.getCommand(), permission));
+        }
     }
 
     @Override
@@ -31,8 +39,8 @@ public abstract class SubCommandInstance implements SubCommand {
     }
 
     @Override
-    public String getPermission() {
-        return permission;
+    public List<String> getPermissionList() {
+        return permissions;
     }
 
     @Override

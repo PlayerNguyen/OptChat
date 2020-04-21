@@ -1,5 +1,8 @@
 package com.playernguyen.optchat.command;
 
+import com.playernguyen.optchat.util.Text;
+import com.playernguyen.optchat.util.TextList;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -36,6 +39,13 @@ public interface Command {
 
     default boolean hasPermission(CommandSender sender) {
         return getPermissionList().stream().anyMatch(sender::hasPermission);
+    }
+
+    default void senderNeedSubHelp(CommandSender sender, SubCommandManager which) {
+        new TextList.Builder()
+                .append(Text.Decoration.commandHorizontalMake(ChatColor.RED))
+                .append(which.toHelpList())
+                .sendMinimal(sender, ChatColor.GRAY);
     }
 
 }

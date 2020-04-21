@@ -3,7 +3,9 @@ package com.playernguyen.optchat.command.channel;
 import com.playernguyen.optchat.command.Command;
 import com.playernguyen.optchat.command.CommandResult;
 import com.playernguyen.optchat.command.SubCommandInstance;
+import com.playernguyen.optchat.config.language.LanguageFlags;
 import com.playernguyen.optchat.config.setting.SettingFlags;
+import com.playernguyen.optchat.user.User;
 import com.playernguyen.optchat.util.Text;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,14 +31,22 @@ public class SubCommandChannelCreate extends SubCommandInstance {
             if (arguments.size() == 1) {
                 channelId = arguments.get(0);
             }
-
+            // Implement user
+            User user = getInstance().getUserManager().getUser(((Player) sender).getUniqueId());
+            // If player on another channel
+            if (user.getChannel() != null && !user.getChannel().isDefault()) {
+                sender.sendMessage(
+                        this.getInstance()
+                                .getLanguageConfiguration()
+                                .getPrefixedLanguage(LanguageFlags.MESSAGE_ON_ANOTHER_CHANNEL)
+                );
+                return CommandResult.SUCCESS;
+            }
+            // Make new channel
             this.getInstance()
                     .getChannelManager()
-                    .createChannel(
-                            channelId,
-                            getInstance().getUserManager().getUser(((Player) sender).getUniqueId()),
-                            getInstance().getSettingConfiguration().getInt(SettingFlags.SETTINGS_MAX_SIZE)
-                            );
+                    .createChannel(channelId, user, getInstance().getSettingConfiguration().getInt(SettingFlags.SETTINGS_MAX_SIZE));
+
             return CommandResult.SUCCESS;
         }
 

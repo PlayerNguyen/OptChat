@@ -2,6 +2,7 @@ package com.playernguyen.optchat.util;
 
 import com.playernguyen.optchat.OptChat;
 import com.playernguyen.optchat.OptChatProvider;
+import org.bukkit.ChatColor;
 
 import java.util.Random;
 
@@ -12,11 +13,11 @@ public class Text {
     /**
      * Text.Builder using to build a text list
      */
-    public static class Builder {
-        private String holder;
+    public static class Decoration {
 
-
-
+        public static String commandHorizontalMake(ChatColor color) {
+            return ChatColor.STRIKETHROUGH + "" + color +  "     -----------------------     ";
+        }
     }
 
     private static OptChat getInstance() {

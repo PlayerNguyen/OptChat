@@ -2,8 +2,6 @@ package com.playernguyen.optchat.command;
 
 import com.playernguyen.optchat.command.channel.SubCommandChannel;
 import com.playernguyen.optchat.permission.PermissionTag;
-import com.playernguyen.optchat.util.TextList;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -25,9 +23,7 @@ public class OptChatExecute extends MainCommandInstance {
         // Check arguments
         if (arguments.size() < 1) {
             // Send list
-            new TextList.Builder()
-                    .append(getSubCommandManager().toHelpList())
-                    .sendMinimal(sender, ChatColor.GRAY);
+            this.senderNeedSubHelp(sender, getSubCommandManager());
             return CommandResult.MISSING_ARGUMENTS;
         }
         // Check sub-command

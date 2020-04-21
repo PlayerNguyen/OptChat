@@ -1,6 +1,7 @@
 package com.playernguyen.optchat.placeholder;
 
 import com.google.common.base.Preconditions;
+import com.playernguyen.optchat.OptChat;
 import com.playernguyen.optchat.OptChatProvider;
 import com.playernguyen.optchat.softdepend.SoftDependFlags;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -26,10 +27,16 @@ public class PlaceholderFormat {
         // Add default value
         builder.add("%player_name%", player.getName());
         builder.add("%message%", message);
-        builder.add("%player_world", Objects.requireNonNull(player.getLocation().getWorld()).getName());
+        builder.add("%player_world%", Objects.requireNonNull(player.getLocation().getWorld()).getName());
+        builder.add("%player_channel_id%", getInstance().getUserManager().getUser(player.getUniqueId()).getChannel().getId());
+        builder.add("%player_channel_display%", getInstance().getUserManager().getUser(player.getUniqueId()).getChannel().getData().getDisplayName());
 
 
         return builder.build();
+    }
+
+    private static OptChat getInstance() {
+        return OptChatProvider.getInstance();
     }
 
 }

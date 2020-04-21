@@ -1,6 +1,9 @@
 package com.playernguyen.optchat.command.channel;
 
-import com.playernguyen.optchat.command.*;
+import com.playernguyen.optchat.command.Command;
+import com.playernguyen.optchat.command.CommandResult;
+import com.playernguyen.optchat.command.SubCommandInstance;
+import com.playernguyen.optchat.command.SubCommandManager;
 import com.playernguyen.optchat.util.TextList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -26,6 +29,7 @@ public class SubCommandChannel extends SubCommandInstance {
         }
         // No arguments found
         if (arguments.size() < 1) {
+            this.senderNeedSubHelp(sender, subCommandManager);
             return CommandResult.MISSING_ARGUMENTS;
         }
         // No sub-command found

@@ -60,7 +60,7 @@ public interface Channel {
      * @return true if this is a default or false if not
      */
     default boolean isDefault() {
-        return this.getId().equals("default");
+        return this.getId().equals(ChannelDefault.DEFAULT_CHANNEL_ID);
     }
 
     /**

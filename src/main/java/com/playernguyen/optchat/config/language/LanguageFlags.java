@@ -12,7 +12,9 @@ public enum  LanguageFlags implements ConfigurableFlags {
     COMMAND_MISSING_ARGUMENT    ("command.missing-argument",  "&cMissing arguments"),
     COMMAND_NOT_FOUND           ("command.command-not-found",  "&cCommand not found"),
 
-    COMMAND_LIST_HEADER         ("command.channel.list.header", "&eChannel List:")
+    COMMAND_LIST_HEADER         ("command.channel.list.header", "&eChannel List:"),
+
+    MESSAGE_ON_ANOTHER_CHANNEL  ("message.on-another-channel", "&cYou are on another channel, please try to leave first.")
     ;
 
     private String path;

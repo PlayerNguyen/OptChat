@@ -1,10 +1,10 @@
 package com.playernguyen.optchat.command.channel;
 
-import com.playernguyen.optchat.channel.Channel;
 import com.playernguyen.optchat.command.Command;
 import com.playernguyen.optchat.command.CommandResult;
 import com.playernguyen.optchat.command.SubCommandInstance;
 import com.playernguyen.optchat.config.language.LanguageFlags;
+import com.playernguyen.optchat.util.TextList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -27,25 +27,21 @@ public class SubCommandChannelList extends SubCommandInstance {
         sender.sendMessage(
                 this.getInstance().getLanguageConfiguration().getPrefixedLanguage(LanguageFlags.COMMAND_LIST_HEADER)
         );
-        this.getInstance().getChannelManager().getContainer().forEach(e->{
-            sender.sendMessage(ChatColor.GRAY + " - " + message + ": "
-                    + ChatColor.translateAlternateColorCodes('&', ));
-        });
-
+        // Send list
+        new TextList.Builder()
+                .append(getInstance()
+                        .getChannelManager()
+                        .getContainer()
+                        .stream()
+                        .map(e->e.getId() + ": " + e.getData()
+                        .getDisplayName())
+                        .collect(Collectors.toList()))
+                .sendMinimal(sender, ChatColor.GRAY);
         return CommandResult.SUCCESS;
     }
 
     @Override
     public List<String> tab(CommandSender sender, List<String> arguments) {
         return null;
-    }
-
-    private List<String> getChannelList() {
-        return this.getInstance()
-                .getChannelManager()
-                .getContainer()
-                .stream()
-                .map(Channel::getId)
-                .collect(Collectors.toList());
     }
 }
